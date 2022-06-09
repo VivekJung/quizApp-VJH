@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
@@ -7,7 +8,7 @@ class AuthService {
 
   //Anonymous Firebase Login
 
-  Future anonymousLogin() async {
+  Future<void> anonymousLogin() async {
     try {
       await FirebaseAuth.instance.signInAnonymously();
     } on FirebaseAuthException catch (e) {
@@ -25,6 +26,24 @@ class AuthService {
       } else if (e.code == 'wrong-password') {
         log('Wrong password provided for that user.');
       }
+    }
+  }
+
+  Future googleLogin() async {
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) return;
+
+      final googleAuth = await googleUser.authentication;
+      final authCredential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(authCredential);
+    } on FirebaseAuthException catch (e) {
+      log(e.code);
     }
   }
 

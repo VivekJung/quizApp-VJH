@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizapp/services/auth_service.dart';
@@ -26,10 +24,16 @@ class LoginScreen extends StatelessWidget {
             Flexible(
               child: LoginButton(
                 loginMethod: AuthService().anonymousLogin,
-                label: "Follow the path of ninja",
+                label: "Follow in anonymously",
                 icon: FontAwesomeIcons.userNinja,
                 color: Colors.deepPurple,
               ),
+            ),
+            LoginButton(
+              loginMethod: AuthService().googleLogin,
+              label: "Follow in with Google account",
+              icon: FontAwesomeIcons.google,
+              color: Colors.blue,
             ),
           ],
         ),
@@ -63,7 +67,7 @@ class _LoginButtonState extends State<LoginButton> {
     return !isLoading
         ? Container(
             height: 80,
-            color: Colors.red,
+            color: Colors.transparent,
             margin: const EdgeInsets.only(bottom: 10),
             child: ElevatedButton.icon(
               onPressed: () async {
