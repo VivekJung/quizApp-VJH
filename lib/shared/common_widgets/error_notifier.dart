@@ -2,12 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 
-errorNotification() {
-  return const Center(
-    child: Text(
-      'Oops! Looks like some error has occured',
-    ),
-  );
+errorMessage(String? errorMessage) {
+  errorMessage == ""
+      ? errorMessage = "Oops! Looks like some error has occured"
+      : errorMessage = errorMessage;
+  return Center(child: Text(errorMessage!));
 }
 
 bool stat(isLoading) {

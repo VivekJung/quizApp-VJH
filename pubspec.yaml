@@ -51,7 +51,10 @@ dev_dependencies:
 
 flutter:
   assets:
-    - images/
+    - assets/
+    - assets/images/
+    - assets/covers/
+    - assets/congrats.gif
 
   uses-material-design: true
   

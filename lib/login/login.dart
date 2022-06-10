@@ -58,7 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
                 height: 150,
                 width: MediaQuery.of(context).size.width / 2,
-                child: const Image(image: AssetImage('images/blueRed.png'))),
+                child: const Image(
+                    image: AssetImage('assets/images/blueRed.png'))),
             const SizedBox(height: 60),
             anonLoginButton(),
             googleLoginButton(),
@@ -103,7 +104,6 @@ class _LoginButtonState extends State<LoginButton> {
   Widget build(BuildContext context) {
     return !isLoading
         ? Container(
-            height: 80,
             color: Colors.transparent,
             margin: const EdgeInsets.only(bottom: 10),
             child: ElevatedButton.icon(
@@ -123,6 +123,6 @@ class _LoginButtonState extends State<LoginButton> {
               label: Text(widget.label),
             ),
           )
-        : circularLoading(90);
+        : circularLoading(80);
   }
 }

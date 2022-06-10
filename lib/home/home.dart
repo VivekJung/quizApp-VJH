@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return circularLoading(60);
         } else if (snapshot.hasError) {
-          return errorNotification();
+          return errorMessage("");
         } else if (snapshot.hasData) {
           return const TopicsScreen();
         } else {

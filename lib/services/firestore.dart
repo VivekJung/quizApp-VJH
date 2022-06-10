@@ -7,7 +7,7 @@ class FirstoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   //Read all docs from the topics collection
-  Future<List<Topic>> getTopic() async {
+  Future<List<Topic>> getTopics() async {
     //while reading data from firestore, we have to make reference to the collection
     var ref = _db.collection('topics');
     //reading the collection once. not streaming/realtime
