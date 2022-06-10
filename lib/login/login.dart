@@ -18,29 +18,36 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     anonLoginButton() {
-      return Flexible(
-        child: LoginButton(
-          loginMethod: AuthService().anonymousLogin,
-          label: "Follow in anonymously",
-          icon: FontAwesomeIcons.userNinja,
-          color: Colors.deepPurple,
-        ),
+      return LoginButton(
+        loginMethod: AuthService().anonymousLogin,
+        label: "Sign-in anonymously",
+        icon: FontAwesomeIcons.userNinja,
+        color: Colors.black54,
       );
     }
 
     googleLoginButton() {
       return LoginButton(
         loginMethod: AuthService().googleLogin,
-        label: "Follow in with Google account",
+        label: "Sign-in with your Google account",
         icon: FontAwesomeIcons.google,
-        color: Colors.blue,
+        color: Colors.red,
+      );
+    }
+
+    emailLoginButton() {
+      return LoginButton(
+        loginMethod: AuthService().emailPasswordLogin,
+        label: "Sign-in with your Djin account",
+        icon: FontAwesomeIcons.freeCodeCamp,
+        color: Colors.deepPurpleAccent.shade700,
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Login'),
+      // ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(20.0),
@@ -48,10 +55,15 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const FlutterLogo(size: 120),
-            const SizedBox(height: 80),
+            SizedBox(
+                height: 150,
+                width: MediaQuery.of(context).size.width / 2,
+                child: const Image(image: AssetImage('images/blueRed.png'))),
+            const SizedBox(height: 60),
             anonLoginButton(),
             googleLoginButton(),
+            const SizedBox(height: 60),
+            emailLoginButton(),
           ],
         ),
       ),
