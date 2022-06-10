@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 errorNotification() {
@@ -6,4 +8,10 @@ errorNotification() {
       'Oops! Looks like some error has occured',
     ),
   );
+}
+
+bool stat(isLoading) {
+  bool loadStatus = isLoading;
+  log('status: $loadStatus');
+  return loadStatus;
 }

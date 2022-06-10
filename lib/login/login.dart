@@ -1,13 +1,42 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizapp/services/auth_service.dart';
 import 'package:quizapp/shared/common_widgets/custom_loading_indicator.dart';
+import 'package:quizapp/shared/common_widgets/error_notifier.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  final bool loadStatus;
+  const LoginScreen({Key? key, this.loadStatus = false}) : super(key: key);
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
   Widget build(BuildContext context) {
+    anonLoginButton() {
+      return Flexible(
+        child: LoginButton(
+          loginMethod: AuthService().anonymousLogin,
+          label: "Follow in anonymously",
+          icon: FontAwesomeIcons.userNinja,
+          color: Colors.deepPurple,
+        ),
+      );
+    }
+
+    googleLoginButton() {
+      return LoginButton(
+        loginMethod: AuthService().googleLogin,
+        label: "Follow in with Google account",
+        icon: FontAwesomeIcons.google,
+        color: Colors.blue,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -21,20 +50,8 @@ class LoginScreen extends StatelessWidget {
           children: [
             const FlutterLogo(size: 120),
             const SizedBox(height: 80),
-            Flexible(
-              child: LoginButton(
-                loginMethod: AuthService().anonymousLogin,
-                label: "Follow in anonymously",
-                icon: FontAwesomeIcons.userNinja,
-                color: Colors.deepPurple,
-              ),
-            ),
-            LoginButton(
-              loginMethod: AuthService().googleLogin,
-              label: "Follow in with Google account",
-              icon: FontAwesomeIcons.google,
-              color: Colors.blue,
-            ),
+            anonLoginButton(),
+            googleLoginButton(),
           ],
         ),
       ),
@@ -62,6 +79,14 @@ class LoginButton extends StatefulWidget {
 
 class _LoginButtonState extends State<LoginButton> {
   bool isLoading = false;
+  bool loadingStatus() {
+    setState(() {
+      isLoading = !isLoading;
+      stat(isLoading);
+    });
+    return isLoading;
+  }
+
   @override
   Widget build(BuildContext context) {
     return !isLoading
@@ -71,10 +96,7 @@ class _LoginButtonState extends State<LoginButton> {
             margin: const EdgeInsets.only(bottom: 10),
             child: ElevatedButton.icon(
               onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
-
+                loadingStatus();
                 await widget.loginMethod();
               },
               icon: Icon(
