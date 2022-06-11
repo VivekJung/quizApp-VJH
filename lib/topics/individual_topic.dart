@@ -11,30 +11,44 @@ class IndividualTopicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(topic.title),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Quizzes"),
+      // ),
       // bottomNavigationBar: const CustomBottomNavBar(),
       body: Container(
         color: Colors.transparent,
         child: ListView(
           children: [
-            Hero(
-              tag: topic.img,
-              child: Image.asset(
-                'assets/covers/${topic.img}',
-                width: MediaQuery.of(context).size.width,
-              ),
+            Stack(
+              children: [
+                Hero(
+                  tag: topic.img,
+                  child: Image.asset(
+                    'assets/covers/${topic.img}',
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ),
+                Positioned(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 20),
                   Text(
                     topic.title,
                     style: Theme.of(context).textTheme.headline1,
                   ),
+                  const SizedBox(height: 20),
                   QuizList(topic: topic),
                 ],
               ),
