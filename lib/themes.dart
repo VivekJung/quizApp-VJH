@@ -9,7 +9,7 @@ var appTheme = ThemeData(
       bodyText2: TextStyle(fontSize: 16),
       headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
       headline2: TextStyle(fontSize: 20),
-      subtitle1: TextStyle(fontSize: 14, color: Colors.white30),
+      subtitle1: TextStyle(fontSize: 10, color: Colors.white30),
       button: TextStyle(
         letterSpacing: 2,
         fontWeight: FontWeight.bold,

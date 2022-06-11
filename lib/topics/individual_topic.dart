@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/services/models.dart';
 import 'package:quizapp/shared/widgets/custom_buttom_nav.dart';
+import 'package:quizapp/topics/topic_drawer.dart';
 
 class IndividualTopicScreen extends StatelessWidget {
   final Topic topic;
@@ -13,7 +14,7 @@ class IndividualTopicScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(topic.title),
       ),
-      bottomNavigationBar: const CustomBottomNavBar(),
+      // bottomNavigationBar: const CustomBottomNavBar(),
       body: Container(
         color: Colors.transparent,
         child: ListView(
@@ -25,7 +26,19 @@ class IndividualTopicScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
               ),
             ),
-            Text(topic.title),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    topic.title,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  QuizList(topic: topic),
+                ],
+              ),
+            )
           ],
         ),
       ),

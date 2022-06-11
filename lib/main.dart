@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quizapp/firebase_options.dart';
 import 'package:quizapp/routes.dart';
+import 'package:quizapp/services/firestore.dart';
+import 'package:quizapp/services/models.dart';
 import 'package:quizapp/themes.dart';
 // import 'firebase_options.dart';
 
@@ -31,10 +34,16 @@ class _MyAppState extends State<MyApp> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            routes: appRoutes,
-            theme: appTheme,
+          return StreamProvider(
+            //function returning stream that is needed
+            create: (_) => FirstoreService().streamReport(),
+            // This is one of the model of our database. now this Report data will be available anywhere needed in real-time.
+            initialData: Report(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              routes: appRoutes,
+              theme: appTheme,
+            ),
           );
         }
 
