@@ -3,7 +3,7 @@ import 'package:quizapp/services/firestore.dart';
 import 'package:quizapp/services/models.dart';
 import 'package:quizapp/shared/common_widgets/custom_loading_indicator.dart';
 import 'package:quizapp/shared/common_widgets/error_notifier.dart';
-import 'package:quizapp/shared/widgets/custom_buttom_nav.dart';
+import 'package:quizapp/shared/widgets/custom_bottom_nav.dart';
 import 'package:quizapp/topics/topic_drawer.dart';
 import 'package:quizapp/topics/topic_item.dart';
 

@@ -91,6 +91,7 @@ class QuizBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
+
     List completed = report.topics[topic.id] ?? [];
     if (completed.contains(quizId)) {
       return const Icon(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/services/models.dart';
-import 'package:quizapp/shared/widgets/custom_buttom_nav.dart';
 import 'package:quizapp/topics/topic_drawer.dart';
 
 class IndividualTopicScreen extends StatelessWidget {
