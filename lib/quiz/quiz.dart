@@ -101,13 +101,13 @@ class CompletionPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'WELL DONE!\n${quiz.title} has been Completed',
+            'WELL DONE!\nYou have succesfully completed - ${quiz.title} ',
             textAlign: TextAlign.center,
           ),
-          const Divider(),
+          const SizedBox(height: 20),
           SizedBox(
-              height: 400, child: Image.asset('assets/images/redWolf.png')),
-          const Divider(),
+              height: 200, child: Image.asset('assets/images/blueRed.png')),
+          const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
               FirstoreService().updateUserReport(quiz);
@@ -115,7 +115,7 @@ class CompletionPage extends StatelessWidget {
                   context, '/topics', (route) => false);
             },
             icon: const Icon(FontAwesomeIcons.check),
-            label: const Text('Mark DONE!'),
+            label: const Text('Mark it DONE !'),
           ),
         ],
       ),
@@ -129,6 +129,99 @@ class QuestionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    var state = Provider.of<QuizState>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+            child: Container(
+          padding: const EdgeInsets.all(16),
+          alignment: Alignment.center,
+          child: Text(question.text),
+        )),
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: question.options.map((opt) {
+              return Container(
+                height: 90,
+                margin: const EdgeInsets.only(bottom: 10),
+                color: Colors.black26,
+                child: InkWell(
+                  onTap: () {
+                    state.selected = opt;
+                    _bottomSheet(context, opt, state);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Icon(
+                          state.selected == opt
+                              ? FontAwesomeIcons.circleCheck
+                              : FontAwesomeIcons.circle,
+                          size: 30,
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 16),
+                            child: Text(
+                              opt.value,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _bottomSheet(BuildContext context, Option opt, QuizState state) {
+    bool isCorrect = opt.correct;
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 250,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(isCorrect ? 'Well Played!' : 'WRONG'),
+              Text(
+                opt.detail,
+                style: const TextStyle(fontSize: 18, color: Colors.white54),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: isCorrect ? Colors.green : Colors.red),
+                onPressed: () {
+                  if (isCorrect) {
+                    state.nextPage();
+                  }
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  isCorrect ? 'Onward' : 'Give it another try',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

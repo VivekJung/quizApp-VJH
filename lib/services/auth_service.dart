@@ -5,7 +5,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
   final user = FirebaseAuth.instance.currentUser;
-
+  // getCurrentUser() {
+  //   try {
+  //     var userData = FirebaseAuth.instance.currentUser;
+  //   } on FirebaseAuthException catch (e) {
+  //     log('Error while getting user\n ${e.toString()}');
+  //   }
+  //   return userData;
+  // }
   //Anonymous Firebase Login
 
   Future<void> anonymousLogin() async {
