@@ -89,7 +89,7 @@ class TopicProgress extends StatelessWidget {
     String count =
         "${(report.topics[topic.id]?.length ?? 0)}/${(topic.quizzes.length)}";
     return Padding(
-      padding: EdgeInsets.only(left: 8),
+      padding: const EdgeInsets.only(left: 8),
       child: Text(
         count,
         style: const TextStyle(fontSize: 10, color: Colors.grey),
